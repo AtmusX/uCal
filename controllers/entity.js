@@ -30,8 +30,10 @@ module.exports.fetch = function * fetch(id, next) {
 
 module.exports.add = function * add(data, next) {
   if ('POST' != this.method) return yield next;
-  let entity = data; // sanitize your input!
-  let inserted = entities.push(entity);
+  let entity = yield parse(this, {
+    limit: '1kb'
+  });
+  entities.push(entity);
   this.body = 'Done!';
 };
 
@@ -63,6 +65,7 @@ module.exports.modify = function * modify(id, next) {
 module.exports.remove = function * remove(id, next) {
   if ('DELETE' != this.method) return yield next;
 
+  console.log('delete id is ', id);
   let entityIndex = -1;
   let entity = yield entities.filter(function (element, index) {
     var check = id === element.id;
@@ -76,7 +79,7 @@ module.exports.remove = function * remove(id, next) {
     this.throw(404, 'book with id = ' + id + ' was not found');
   }
 
-  entities.slice(entityIndex, 1);
+  entities.splice(entityIndex, 1);
 
   this.body = "Done";
 };
