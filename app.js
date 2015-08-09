@@ -31,5 +31,5 @@ app.use(compress());
 
 if (!module.parent) {
   app.listen(1337);
-  console.log('listening on port 1337');
+  console.log('listening on port 1337'); //eslint-disable-line no-console
 }
