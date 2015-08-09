@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node --harmony app.js",
-    "test": "mocha --harmony"
+    "start": "node app.js"
   },
   "dependencies": {
     "co": "^4.4.0",

@@ -1,13 +1,8 @@
 'use strict';
-var views = require('co-views');
 var parse = require('co-body');
 var co = require('co');
 var entities = [];
 
-
-co(function * () {
-  var books = yield books.find({});
-});
 
 module.exports.home = function * home(next) {
   if ('GET' != this.method) return yield next;
@@ -23,7 +18,7 @@ module.exports.fetch = function * fetch(id, next) {
   if ('GET' != this.method) return yield next;
   // Quick hack.
   if(id === '' + parseInt(id, 10)) {
-    var entity = yield entities.find(element => {
+    var entity = yield entities.find(function (element) {
       return id === element.id;
     });
     if (entity.length === 0) {
@@ -47,7 +42,7 @@ module.exports.modify = function * modify(id, next) {
     limit: '1kb'
   });
 
-  var entityIndex = yield entities.findIndex(element => {
+  var entityIndex = yield entities.findIndex(function (element) {
     return id === element.id;
   });
 
@@ -63,7 +58,7 @@ module.exports.modify = function * modify(id, next) {
 module.exports.remove = function * remove(id, next) {
   if ('DELETE' != this.method) return yield next;
 
-  var entityIndex = yield entities.findIndex(element => {
+  var entityIndex = yield entities.findIndex(function (element) {
     return id === element.id;
   });
 

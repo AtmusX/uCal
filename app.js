@@ -1,5 +1,5 @@
 'use strict';
-var books = require('./controllers/books');
+var entities = require('./controllers/entity');
 var compress = require('koa-compress');
 var logger = require('koa-logger');
 var serve = require('koa-static');
@@ -11,16 +11,15 @@ var app = module.exports = koa();
 // Logger
 app.use(logger());
 
-app.use(route.get('/', books.home));
-app.use(route.get('/books/', books.all));
-app.use(route.get('/view/books/', books.list));
-app.use(route.get('/books/:id', books.fetch));
-app.use(route.post('/books/', books.add));
-app.use(route.put('/books/:id', books.modify));
-app.use(route.delete('/books/:id', books.remove));
-app.use(route.options('/', books.options));
-app.use(route.trace('/', books.trace));
-app.use(route.head('/', books.head));
+app.use(route.get('/', entities.home));
+app.use(route.get('/entities/', entities.all));
+app.use(route.get('/entities/:id', entities.fetch));
+app.use(route.post('/entities/', entities.add));
+app.use(route.put('/entities/:id', entities.modify));
+app.use(route.delete('/entities/:id', entities.remove));
+app.use(route.options('/', entities.options));
+app.use(route.trace('/', entities.trace));
+app.use(route.head('/', entities.head));
 
 
 
