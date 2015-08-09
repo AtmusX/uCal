@@ -1,6 +1,5 @@
 'use strict';
 var parse = require('co-body');
-var co = require('co');
 var entities = [];
 
 
@@ -45,7 +44,7 @@ module.exports.modify = function * modify(id, next) {
   });
 
   let entityIndex = -1;
-  let entity = yield entities.filter(function (element, index) {
+  yield entities.filter(function (element, index) {
     let check = id === element.id;
     if (check) {
       entityIndex = index;
@@ -59,15 +58,14 @@ module.exports.modify = function * modify(id, next) {
 
   entities[entityIndex] = data;
 
-  this.body = "Done";
+  this.body = 'Done';
 };
 
 module.exports.remove = function * remove(id, next) {
   if ('DELETE' != this.method) return yield next;
 
-  console.log('delete id is ', id);
   let entityIndex = -1;
-  let entity = yield entities.filter(function (element, index) {
+  yield entities.filter(function (element, index) {
     var check = id === element.id;
     if (check) {
       entityIndex = index;
@@ -81,7 +79,7 @@ module.exports.remove = function * remove(id, next) {
 
   entities.splice(entityIndex, 1);
 
-  this.body = "Done";
+  this.body = 'Done';
 };
 
 module.exports.head = function *(){
@@ -89,9 +87,9 @@ module.exports.head = function *(){
 };
 
 module.exports.options = function *() {
-  this.body = "Allow: HEAD,GET,PUT,DELETE,OPTIONS";
+  this.body = 'Allow: HEAD,GET,PUT,DELETE,OPTIONS';
 };
 
 module.exports.trace = function *() {
-  this.body = "Smart! But trace along the lines.";
+  this.body = 'Smart! But trace along the lines.';
 };
